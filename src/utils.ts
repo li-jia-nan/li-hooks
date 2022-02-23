@@ -7,7 +7,7 @@ export const nullRef: React.RefObject<any> = {
   current: null,
 };
 
-export const isBrowser = typeof window !== 'undefined';
+export const isBrowser = typeof window !== 'undefined' && window.document;
 
 export const isNavigator = typeof navigator !== 'undefined';
 
