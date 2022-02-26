@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 type Key = PropertyKey;
 type Keys<Modules> = keyof Modules;
 type Values<Modules> = Modules[Keys<Modules>];
@@ -48,6 +48,13 @@ type FunctionParamsValueAndReturnPartial<T> = T extends (...args: infer P) => in
 type AsyncFunction<P extends any[] = any[], R = any> = (...args: P) => Promise<R>;
 
 type PromiseValue<T> = T extends (...args: any[]) => Promise<infer V> ? V : never;
+
+export type TargetValue<T> = T | undefined | null;
+
+export type BasicTarget<T extends DomElement = Element> =
+  | (() => TargetValue<T>)
+  | TargetValue<T>
+  | MutableRefObject<TargetValue<T>>;
 
 export type {
   Key,

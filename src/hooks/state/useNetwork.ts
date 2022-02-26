@@ -58,7 +58,6 @@ const useNetwork = (): NetworkState => {
         ...getConnectionProperty(),
       }));
     };
-
     window?.addEventListener(NetworkEventType.ONLINE, onOnline);
     window?.addEventListener(NetworkEventType.OFFLINE, onOffline);
     const connection = getConnection();

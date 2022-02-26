@@ -91,9 +91,12 @@ export const resolvePromise = <T>(value: T): Promise<ResolvePromise<T>> => {
   });
 };
 
-export const getDomElement = <T extends DomElement>(ref: DomParam<T>): T | null => {
-  if (isRef(ref)) {
-    return ref.current;
+export const getDomElement = <T extends DomElement>(target: DomParam<T>): T | null => {
+  if (!isBrowser) {
+    return null;
   }
-  return ref;
+  if (isRef(target)) {
+    return target.current;
+  }
+  return target;
 };

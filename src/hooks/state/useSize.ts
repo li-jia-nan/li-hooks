@@ -23,7 +23,6 @@ const useSize = (ref: React.RefObject<Element>): UseSizeState => {
     if (!ref.current) {
       return;
     }
-
     const resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
       const entry = entries[0];
       if (!entry) {

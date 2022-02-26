@@ -1,4 +1,4 @@
-import { useRef, useCallback, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
 import useUpdate from '../lifecycle/useUpdate';
 
 // k:v 原对象:代理过的对象
@@ -16,13 +16,10 @@ const observer = <T extends Record<PropertyKey, any> = Record<PropertyKey, any>>
 ): T => {
   const existingProxy = proxyMap.get(initialVal);
 
-  // 添加缓存 防止重新构建proxy
   if (existingProxy) {
     return existingProxy;
   }
 
-  // 防止代理已经代理过的对象
-  // https://github.com/alibaba/hooks/issues/839
   if (rawMap.has(initialVal)) {
     return initialVal;
   }
