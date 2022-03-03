@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import useUpdateEffect from '../lifecycle/useUpdateEffect';
 
 const serializer = <T>(value: T) => {
@@ -21,7 +21,7 @@ const deserializer = (value: string) => {
 };
 const getValue = (key: string) => {
   try {
-    const raw = localStorage?.getItem(key);
+    const raw = sessionStorage?.getItem(key);
     if (raw) {
       return deserializer(raw);
     }
@@ -32,9 +32,9 @@ const getValue = (key: string) => {
   }
 };
 
-type LocalStorageStateType = readonly [any, (value?: any) => void];
+type SessionStorageStateType = readonly [any, (value?: any) => void];
 
-const useLocalStorageState = (key: string): LocalStorageStateType => {
+const useSessionStorageState = (key: string): SessionStorageStateType => {
   const [state, setState] = useState(() => getValue(key));
   useUpdateEffect(() => {
     setState(getValue(key));
@@ -46,7 +46,7 @@ const useLocalStorageState = (key: string): LocalStorageStateType => {
         if (currentState) {
           try {
             setState(currentState);
-            localStorage?.setItem?.(key, currentState);
+            sessionStorage?.setItem?.(key, currentState);
           } catch (e) {
             if (e instanceof Error) {
               throw new Error(e.message);
@@ -55,7 +55,7 @@ const useLocalStorageState = (key: string): LocalStorageStateType => {
         }
       } else {
         setState(undefined);
-        localStorage?.removeItem?.(key);
+        sessionStorage?.removeItem?.(key);
       }
     },
     [state, key]
@@ -63,4 +63,4 @@ const useLocalStorageState = (key: string): LocalStorageStateType => {
   return [state, updateState] as const;
 };
 
-export default useLocalStorageState;
+export default useSessionStorageState;

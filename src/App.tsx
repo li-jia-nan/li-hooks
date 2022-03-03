@@ -1,12 +1,14 @@
-import React from 'react';
-import useLocalStorageState from './hooks/state/useLocalStorageState';
+import React, { useState } from 'react';
+import useUpdateEffect from './hooks/lifecycle/useUpdateEffect';
+import useSessionStorageState from './hooks/state/useSessionStorageState';
 
 const App: React.FC = () => {
-  const [, updateState] = useLocalStorageState('fuck');
-  React.useEffect(() => {
-    updateState([1, 2, 3, 4]);
-  }, []);
-  return null;
+  const [state, updateState] = useSessionStorageState('fuck');
+  const [num, updateNum] = useState<number>(0);
+  useUpdateEffect(() => {
+    updateState();
+  }, [num]);
+  return <div onClick={() => updateNum(num + 1)}>{num}</div>;
 };
 
 export default App;
