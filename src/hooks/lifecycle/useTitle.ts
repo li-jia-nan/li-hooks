@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { isBrowser } from '../../utils';
-import useUnmount from '../lifecycle/useUnmount';
+import useUnmount from './useUnmount';
 
 export interface Options {
   restoreOnUnmount?: boolean;

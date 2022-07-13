@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import useUpdateEffect from '../lifecycle/useUpdateEffect';
+import useUpdateEffect from './useUpdateEffect';
 
 const serializer = <T>(value: T) => {
   try {

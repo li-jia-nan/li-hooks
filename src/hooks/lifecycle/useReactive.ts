@@ -1,5 +1,5 @@
 import { useRef, useMemo } from 'react';
-import useUpdate from '../lifecycle/useUpdate';
+import useUpdate from './useUpdate';
 
 // k:v 原对象:代理过的对象
 const proxyMap = new WeakMap();

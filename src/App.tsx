@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useUpdateEffect from './hooks/lifecycle/useUpdateEffect';
-import useSessionStorageState from './hooks/state/useSessionStorageState';
+import useSessionStorageState from './hooks/lifecycle/useSessionStorageState';
 
 const App: React.FC = () => {
   const [state, updateState] = useSessionStorageState('fuck');

@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { DomParam } from '../../types';
 import { getDomElement, isSameDeps } from '../../utils';
-import useUnmount from '../lifecycle/useUnmount';
+import useUnmount from './useUnmount';
 
 const createEffectWithTarget = (useEffectType: typeof useEffect | typeof useLayoutEffect) => {
   const useEffectWithTarget = (
