@@ -6,8 +6,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { DomParam } from '../../types';
-import { getDomElement, isSameDeps } from '../../utils';
+import { DomParam } from '../types';
+import { getDomElement, isSameDeps } from '../utils';
+
 import useUnmount from './useUnmount';
 
 const createEffectWithTarget = (useEffectType: typeof useEffect | typeof useLayoutEffect) => {
@@ -23,7 +24,7 @@ const createEffectWithTarget = (useEffectType: typeof useEffect | typeof useLayo
 
     useEffectType(() => {
       const targets = Array.isArray(target) ? target : [target];
-      const els = targets.map(item => getDomElement(item));
+      const els = targets.map(getDomElement);
 
       // init run
       if (!hasInitRef.current) {

@@ -100,3 +100,11 @@ export const getDomElement = <T extends DomElement>(target: DomParam<T>): T | nu
   }
   return target;
 };
+
+export const parseTimeRanges = (ranges: TimeRanges) => {
+  const result: Record<'start' | 'end', number>[] = new Array(ranges.length);
+  for (let i = 0; i < ranges.length; i++) {
+    result[i] = { start: ranges.start(i), end: ranges.end(i) };
+  }
+  return result;
+};
