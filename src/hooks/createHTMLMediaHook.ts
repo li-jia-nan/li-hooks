@@ -1,11 +1,9 @@
-import React, { ReactEventHandler } from 'react';
+import React, { ReactEventHandler, AudioHTMLAttributes, VideoHTMLAttributes } from 'react';
 import { useEffect, useRef } from 'react';
 import { parseTimeRanges } from '../utils';
 import useSetState from './useSetState';
 
-export interface HTMLMediaProps
-  extends React.AudioHTMLAttributes<any>,
-    React.VideoHTMLAttributes<any> {
+export interface HTMLMediaProps extends AudioHTMLAttributes<any>, VideoHTMLAttributes<any> {
   src: string;
 }
 
