@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 
-const useUpdate = (): (() => void) => {
-  const [, update] = useState({});
+const useUpdate = () => {
+  const [, update] = useState<any[]>([]);
 
   return useCallback(() => {
-    update({});
+    update([]);
   }, []);
 };
 
