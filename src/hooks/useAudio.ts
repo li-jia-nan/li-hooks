@@ -1,3 +1,5 @@
 import createHTMLMediaHook, { Tag } from './createHTMLMediaHook';
 
-export default createHTMLMediaHook<HTMLAudioElement>(Tag.Audio);
+const useAudio = createHTMLMediaHook<HTMLAudioElement>(Tag.Audio);
+
+export default useAudio;

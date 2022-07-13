@@ -1,3 +1,5 @@
 import createHTMLMediaHook, { Tag } from './createHTMLMediaHook';
 
-export default createHTMLMediaHook<HTMLVideoElement>(Tag.Video);
+const useVideo = createHTMLMediaHook<HTMLVideoElement>(Tag.Video);
+
+export default useVideo;
