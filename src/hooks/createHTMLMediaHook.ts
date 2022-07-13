@@ -142,16 +142,14 @@ const createHTMLMediaHook = <T extends HTMLAudioElement | HTMLVideoElement>(tag:
     let lockPlay: boolean = false;
 
     const controls = {
-      play: () => {
+      play() {
         const el = ref.current;
         if (!el) {
           return undefined;
         }
-
         if (!lockPlay) {
           const promise = el.play();
           const isPromise = typeof promise === 'object';
-
           if (isPromise) {
             lockPlay = true;
             const resetLock = () => {
@@ -159,18 +157,17 @@ const createHTMLMediaHook = <T extends HTMLAudioElement | HTMLVideoElement>(tag:
             };
             promise.then(resetLock, resetLock);
           }
-
           return promise;
         }
         return undefined;
       },
-      pause: () => {
+      pause() {
         const el = ref.current;
         if (el && !lockPlay) {
           return el.pause();
         }
       },
-      seek: (time: number) => {
+      seek(time: number) {
         const el = ref.current;
         if (!el || state.duration === undefined) {
           return;
@@ -178,7 +175,7 @@ const createHTMLMediaHook = <T extends HTMLAudioElement | HTMLVideoElement>(tag:
         time = Math.min(state.duration, Math.max(0, time));
         el.currentTime = time;
       },
-      volume: (volume: number) => {
+      volume(volume: number) {
         const el = ref.current;
         if (!el) {
           return;
@@ -187,14 +184,14 @@ const createHTMLMediaHook = <T extends HTMLAudioElement | HTMLVideoElement>(tag:
         el.volume = volume;
         setState({ volume });
       },
-      mute: () => {
+      mute() {
         const el = ref.current;
         if (!el) {
           return;
         }
         el.muted = true;
       },
-      unmute: () => {
+      unmute() {
         const el = ref.current;
         if (!el) {
           return;
