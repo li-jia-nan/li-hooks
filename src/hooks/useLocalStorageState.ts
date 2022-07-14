@@ -1,36 +1,6 @@
 import { useState, useCallback } from 'react';
+import { getValue, serializer } from '../utils';
 import useUpdateEffect from './useUpdateEffect';
-
-const serializer = <T>(value: T) => {
-  try {
-    return JSON.stringify(value);
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
-  }
-};
-const deserializer = (value: string) => {
-  try {
-    return JSON.parse(value);
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
-  }
-};
-const getValue = (key: string) => {
-  try {
-    const raw = localStorage?.getItem(key);
-    if (raw) {
-      return deserializer(raw);
-    }
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
-  }
-};
 
 type LocalStorageStateType = readonly [any, (value?: any) => void];
 

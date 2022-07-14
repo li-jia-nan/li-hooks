@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { isBrowser } from '../../utils';
+import { isBrowser } from '../utils';
 import useUnmount from './useUnmount';
 
 export interface Options {

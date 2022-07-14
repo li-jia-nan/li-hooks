@@ -108,3 +108,36 @@ export const parseTimeRanges = (ranges: TimeRanges) => {
   }
   return result;
 };
+
+export const serializer = <T>(value: T) => {
+  try {
+    return JSON.stringify(value);
+  } catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
+};
+
+export const deserializer = (value: string) => {
+  try {
+    return JSON.parse(value);
+  } catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
+};
+
+export const getValue = (key: string) => {
+  try {
+    const raw = sessionStorage?.getItem(key);
+    if (raw) {
+      return deserializer(raw);
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
+};
