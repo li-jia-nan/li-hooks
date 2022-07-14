@@ -1,22 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { produce } from 'immer';
 
-type SpeechOptions = {
+interface SpeechOptions {
   lang: string;
   voice?: SpeechSynthesisVoice;
   rate: number;
   pitch: number;
   volume: number;
-};
+}
 
 export type ISpeechOptions = Partial<SpeechOptions>;
 
 export type VoiceInfo = Pick<SpeechSynthesisVoice, 'lang' | 'name'>;
 
-export type ISpeechState = SpeechOptions & {
+export interface ISpeechState extends SpeechOptions {
   isPlaying: boolean;
   status: string;
   voiceInfo: VoiceInfo;
-};
+}
 
 enum Status {
   init,
@@ -44,28 +45,43 @@ const useSpeech = (text: string, options: ISpeechOptions): ISpeechState => {
     if (!mounted.current) {
       return;
     }
-    setState(prevState => ({ ...prevState, isPlaying: true, status: Status[Status.play] }));
+    setState(prevState => {
+      return produce(prevState, draft => {
+        draft.isPlaying = true;
+        draft.status = Status[Status.play];
+      });
+    });
   }, []);
 
   const handlePause = useCallback(() => {
     if (!mounted.current) {
       return;
     }
-    setState(prevState => ({ ...prevState, isPlaying: false, status: Status[Status.pause] }));
+    setState(prevState => {
+      return produce(prevState, draft => {
+        draft.isPlaying = false;
+        draft.status = Status[Status.pause];
+      });
+    });
   }, []);
 
   const handleEnd = useCallback(() => {
     if (!mounted.current) {
       return;
     }
-    setState(prevState => ({ ...prevState, isPlaying: false, status: Status[Status.end] }));
+    setState(prevState => {
+      return produce(prevState, draft => {
+        draft.isPlaying = false;
+        draft.status = Status[Status.end];
+      });
+    });
   }, []);
 
   useEffect(() => {
     mounted.current = true;
     const utterance = new SpeechSynthesisUtterance(text);
-    options.lang && (utterance.lang = options.lang);
-    options.voice && (utterance.voice = options.voice);
+    options.lang && (utterance.lang = options?.lang);
+    options.voice && (utterance.voice = options?.voice);
     utterance.rate = options.rate || 1;
     utterance.pitch = options.pitch || 1;
     utterance.volume = options.volume || 1;
